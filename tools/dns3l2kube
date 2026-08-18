@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+DNS3LCLI=dns3lcli
+
+if [ "$1" == "issuer" ]; then
+  if [ "$4" == "" ]; then
+    >&2 echo "Usage: dns3l2kube issuer <issuer-name> <dns3ld-url> <dns3ld-caid>"
+    exit 1
+  fi
+  cat << EOF
+apiVersion: dns3l.github.com/v1alpha1
+kind: Issuer
+metadata:
+  name: $2
+spec:
+  url: $3
+  caid: $4
+EOF
+  exit 0
+fi
+
+if [ "$1" == "keycert" ]; then
+  if [ "$4" == "" ]; then
+    >&2 echo "Usage: dns3l2kube keycert <dns3l-issuer-name> <dns3l-crt-name> <k8s-crt-name> [dns3lcli-extra-args]"
+    exit 1
+  fi
+  pems=$($DNS3LCLI crt pem ca1 $3 --json "${@:5}")
+  pemcrt=$(echo $pems | jq -r .cert)
+  pemkey=$(echo $pems | jq -r .key)
+  if ! echo "$pemkey" | openssl rsa -check -noout >/dev/null; then
+    >&2 echo "error: key is not rsa (only supporting rsa at the moment) or corrupted"
+    exit 2
+  fi
+  keysize=$(echo "$pemkey" | openssl pkey -text -noout | sed -n 's/.*(\([0-9]\+\) bit.*/\1/p' | head -1)
+  cn=$(echo "$pemcrt" | openssl x509 -noout -subject -nameopt multiline 2>/dev/null | sed -n 's/^[[:space:]]*commonName[[:space:]]*=[[:space:]]*//p' | head -1)
+  cat << EOF
+apiVersion: v1
+kind: Secret
+metadata:
+    name: $4
+    annotations:
+        cert-manager.io/issuer-name: $2
+        cert-manager.io/issuer-kind: Issuer
+        cert-manager.io/issuer-group: dns3l.github.com
+        cert-manager.io/certificate-name: $4
+type: kubernetes.io/tls
+data:
+    tls.crt: |
+$(echo "$pemcrt" | base64 | sed 's/^/       /')
+    tls.key: |
+$(echo "$pemkey" | base64 | sed 's/^/       /')
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+    name: $4
+spec:
+    secretName: $4
+
+    privateKey:
+        algorithm: RSA
+        size: $keysize
+        encoding: PKCS1
+        rotationPolicy: Never
+
+    commonName: $cn
+
+    issuerRef:
+        name: $2
+        kind: Issuer
+        group: dns3l.github.com
+EOF
+  exit 0
+fi
+>&2 echo "Usage: dns3l2kube <issuer|keycert>. Type command to see its usage."
+exit 1

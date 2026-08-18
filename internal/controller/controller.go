@@ -21,6 +21,7 @@ import (
 	"crypto/x509"
 	"encoding/pem"
 	"fmt"
+	"strings"
 	"time"
 
 	"k8s.io/apimachinery/pkg/runtime"
@@ -102,18 +103,20 @@ func (i Issuer) FetchCertificate(ctx context.Context, cr signer.CertificateReque
 		return signer.PEMBundle{}, err
 	}
 
-	certName, err := getCertificateName(crDetails.CSR)
+	commonName, err := getCommonName(crDetails.CSR)
 	if err != nil {
 		return signer.PEMBundle{}, err
 	}
 
+	crtName := getDNS3LCrtName(commonName)
+
 	logger.Info("fetching certificate from DNS3L",
-		"certificate", certName,
+		"certificate", crtName,
 		"ca", dns3lIssuer.CAID,
 		"url", dns3lIssuer.URL,
 	)
 
-	chain, err := dns3lClient.GetCertificatePEMChain(ctx, dns3lIssuer.CAID, certName)
+	chain, err := dns3lClient.GetCertificatePEMChain(ctx, dns3lIssuer.CAID, crtName)
 	if err != nil {
 		return signer.PEMBundle{}, err
 	}
@@ -126,7 +129,15 @@ func (i Issuer) FetchCertificate(ctx context.Context, cr signer.CertificateReque
 	return signer.PEMBundle(bundle), nil
 }
 
-func getCertificateName(csrPEM []byte) (string, error) {
+func getDNS3LCrtName(commonName string) string {
+	if strings.HasPrefix(commonName, "*.") {
+		// wildcard cert names are without the * in dns3l
+		return commonName[2:]
+	}
+	return commonName
+}
+
+func getCommonName(csrPEM []byte) (string, error) {
 	csrDER := csrPEM
 	pemBlock, _ := pem.Decode(csrPEM)
 	if pemBlock != nil {

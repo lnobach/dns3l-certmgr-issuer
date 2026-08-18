@@ -17,8 +17,17 @@ limitations under the License.
 package controller
 
 import (
+	"testing"
+
 	. "github.com/onsi/ginkgo/v2"
+	"github.com/stretchr/testify/assert"
 )
 
 var _ = Describe("DNS3LIssuer Controller", func() {
 })
+
+func TestGetDNS3LCrtName(t *testing.T) {
+
+	assert.Equal(t, "wildcard.foo.bar", getDNS3LCrtName("*.wildcard.foo.bar"))
+	assert.Equal(t, "nonwildcard.foo.bar", getDNS3LCrtName("nonwildcard.foo.bar"))
+}
