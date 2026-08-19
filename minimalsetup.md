@@ -20,7 +20,7 @@ helm install \
   --set approveSignerNames[3]="clusterissuers.dns3l.github.com/*"
 make docker-build
 kind load docker-image ghcr.io/dns3l/dns3l-certmgr-issuer:dev
-make helm-deploy IMG=ghcr.io/dns3l/dns3l-certmgr-issuer:dev
+make helm-deploy
 ```
 
 ## Install dns3ld and make it reachable by kind
@@ -47,6 +47,7 @@ tools/dns3l2kube issuer dns3l-test "$DNS3L_URL_4KIND" ca1 | kubectl apply -f -
 
 If you want to be sure, check the logs if the dns3l issuer writes `Succeeded checking the issuer`.
 
+## Create the first certificate and import it
 
 For the next step, you need dns3lcli, because `tools/dns3l2kube` requires it.
 Create a certificate in DNS3L and let it be maintained by cert-manager:
@@ -55,5 +56,5 @@ Create a certificate in DNS3L and let it be maintained by cert-manager:
 # Claim a certificate if not already done
 dns3lcli crt claim ca1 foo.bla.example.com --no-auth --server http://127.0.0.1:8080
 # Import the claimed certificate to Kubernetes (creates a Secret and a Certificate resource)
-tools/dns3l2kube keycert dns3l-test foo.bla.example.com foobla-cert --no-auth --server http://127.0.0.1:8080 | yq .
+tools/dns3l2kube keycert dns3l-test ca1 foo.bla.example.com foobla-cert --no-auth --server http://127.0.0.1:8080 | kubectl apply -f -
 ```
