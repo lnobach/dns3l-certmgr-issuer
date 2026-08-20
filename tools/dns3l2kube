@@ -27,7 +27,7 @@ if [ "$1" == "keycert" ]; then
     exit 1
   fi
   pems=$($DNS3LCLI crt pem $3 $4 --json "${@:6}")
-  pemcrt=$(echo $pems | jq -r .cert)
+  pemcrt=$(echo $pems | jq -r .fullchain)
   pemkey=$(echo $pems | jq -r .key)
   if ! echo "$pemkey" | openssl rsa -check -noout >/dev/null; then
     >&2 echo "error: key is not rsa (only supporting rsa at the moment) or corrupted"
