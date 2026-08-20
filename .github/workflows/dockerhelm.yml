@@ -107,10 +107,9 @@ jobs:
       - name: Package Helm chart
         run: |
           mkdir -p build/helm
-
           helm package dist/chart \
-            --version "${{ steps.release.outputs.version }}" \
-            --app-version "${{ steps.release.outputs.version }}" \
+            --version "${GITHUB_REF_NAME#v}" \
+            --app-version "${GITHUB_REF_NAME#v}" \
             --destination build/helm
 
       - name: Log helm in to GHCR

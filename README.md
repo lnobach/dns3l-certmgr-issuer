@@ -29,7 +29,7 @@ Then there are multiple ways to install the dns3l-certmgr-issuer:
 1. Install via packaged helm chart:
 
 ```bash
-helm install dns3l-certmgr-issuer oci://ghcr.io/dns3l/dns3l-certmgr-issuer/chart --version <version>
+helm install dns3l-certmgr-issuer oci://ghcr.io/dns3l/charts/dns3l-certmgr-issuer --version <version>
 ```
 
 2. Install via helm chart from source:
