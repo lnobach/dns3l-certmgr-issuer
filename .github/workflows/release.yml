@@ -26,10 +26,10 @@ jobs:
         with:
           node-version: "lts/*"
           package-manager-cache: false
-      - name: Install dependencies
-        run: npm clean-install
-      - name: Verify integrity
-        run: npm audit signatures
+      - name: Setup corepack
+        run: corepack enable
+      - name: Setup semantic-release
+        run: yarn install
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
