@@ -44,10 +44,10 @@ type Issuer struct {
 	Scheme *runtime.Scheme
 }
 
-const issuerName = "dns3l-issuer.dns3l.github.com"
+const issuerName = "dns3l-issuer.dns3l.github.io"
 
-// +kubebuilder:rbac:groups=dns3l.github.com,resources=issuers;clusterissuers,verbs=get;list;watch
-// +kubebuilder:rbac:groups=dns3l.github.com,resources=issuers/status;issuers/status,verbs=patch
+// +kubebuilder:rbac:groups=dns3l.github.io,resources=issuers;clusterissuers,verbs=get;list;watch
+// +kubebuilder:rbac:groups=dns3l.github.io,resources=issuers/status;issuers/status,verbs=patch
 // +kubebuilder:rbac:groups=events.k8s.io,resources=events,verbs=create;patch
 // +kubebuilder:rbac:groups=cert-manager.io,resources=certificaterequests,verbs=get;list;watch
 // +kubebuilder:rbac:groups=cert-manager.io,resources=certificaterequests/status,verbs=patch

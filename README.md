@@ -17,8 +17,8 @@ DNS3L issuer certificate requests by adding the following flags to the cert-mana
 --set approveSignerNames[0]="issuers.cert-manager.io/*" \
 --set approveSignerNames[1]="clusterissuers.cert-manager.io/*" \
 \
---set approveSignerNames[2]="issuers.dns3l.github.com/*" \
---set approveSignerNames[3]="clusterissuers.dns3l.github.com/*"
+--set approveSignerNames[2]="issuers.dns3l.github.io/*" \
+--set approveSignerNames[3]="clusterissuers.dns3l.github.io/*"
 ```
 
 > More on the approval mechanism [here](https://cert-manager.io/docs/usage/certificaterequest/#approval)
@@ -46,13 +46,27 @@ make helm-deploy IMG=ghcr.io/dns3l/dns3l-certmgr-issuer:latest
 make deploy IMG=ghcr.io/dns3l/dns3l-certmgr-issuer:latest
 ```
 
-## Usage
+## Usage (dns3l2kube tool)
 
-Once the controller is up and running we first need to create a `ClusterIssuer` or `Issuer` resource that points to 
-the a DNS3L instance. The following example shows an `Issuer`:
+After successful installation of the controller, you can use the `tools/dns3l2kube` tool to create
+an issuer and create your first certificate:
+
+```
+tools/dns3l2kube issuer dns3l-example https://dns3l.example.com example-ca
+dns3lcli crt claim example-ca example.com
+tools/dns3l2kube keycert dns3l-example example-ca example.com example-cert
+```
+
+For more information, see the [dns3l2kube docs](./tools/README.md).
+
+## Usage (manual CRDs)
+
+If you have used `dns3l2kube` like above, you can omit this step. Once the controller
+is up and running we first need to create a `ClusterIssuer` or `Issuer`
+resource that points to the a DNS3L instance. The following example shows an `Issuer`:
 
 ```yaml
-apiVersion: dns3l.github.com/v1alpha1
+apiVersion: dns3l.github.io/v1alpha1
 kind: Issuer
 metadata:
   name: dns3l-example
@@ -77,7 +91,7 @@ metadata:
     annotations:
         cert-manager.io/issuer-name: dns3l-example
         cert-manager.io/issuer-kind: Issuer
-        cert-manager.io/issuer-group: dns3l.github.com
+        cert-manager.io/issuer-group: dns3l.github.io
         cert-manager.io/certificate-name: example-cert
 type: kubernetes.io/tls
 data:
@@ -107,7 +121,7 @@ spec:
     issuerRef:
         name: dns3l-example
         kind: Issuer
-        group: dns3l.github.com
+        group: dns3l.github.io
 ```
 
 Hereby following things must match:

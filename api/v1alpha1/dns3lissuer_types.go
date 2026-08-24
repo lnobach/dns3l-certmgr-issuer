@@ -69,7 +69,7 @@ func (i *Issuer) GetConditions() []metav1.Condition {
 }
 
 func (i *Issuer) GetIssuerTypeIdentifier() string {
-	return "issuer.dns3l-issuer.dns3l.github.com"
+	return "issuer.dns3l-issuer.dns3l.github.io"
 }
 
 // +kubebuilder:object:root=true

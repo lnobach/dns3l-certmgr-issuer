@@ -17,13 +17,13 @@ metadata:
   name: {{ include "dns3l-certmgr-issuer.resourceName" (dict "suffix" "dns3lclusterissuer-admin-role" "context" $) }}
 rules:
 - apiGroups:
-  - dns3l.github.com.github.com
+  - dns3l.github.io
   resources:
   - dns3lclusterissuers
   verbs:
   - '*'
 - apiGroups:
-  - dns3l.github.com.github.com
+  - dns3l.github.io
   resources:
   - dns3lclusterissuers/status
   verbs:

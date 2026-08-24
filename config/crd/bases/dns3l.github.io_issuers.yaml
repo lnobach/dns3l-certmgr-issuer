@@ -4,9 +4,9 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.21.0
-  name: issuers.dns3l.github.com
+  name: issuers.dns3l.github.io
 spec:
-  group: dns3l.github.com
+  group: dns3l.github.io
   names:
     kind: Issuer
     listKind: IssuerList

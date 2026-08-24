@@ -39,7 +39,7 @@ rules:
   verbs:
   - patch
 - apiGroups:
-  - dns3l.github.com
+  - dns3l.github.io
   resources:
   - clusterissuers
   - issuers
@@ -48,7 +48,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - dns3l.github.com
+  - dns3l.github.io
   resources:
   - issuers/status
   verbs:

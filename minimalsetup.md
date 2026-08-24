@@ -16,8 +16,8 @@ helm install \
   --set crds.enabled=true \
   --set approveSignerNames[0]="issuers.cert-manager.io/*" \
   --set approveSignerNames[1]="clusterissuers.cert-manager.io/*" \
-  --set approveSignerNames[2]="issuers.dns3l.github.com/*" \
-  --set approveSignerNames[3]="clusterissuers.dns3l.github.com/*"
+  --set approveSignerNames[2]="issuers.dns3l.github.io/*" \
+  --set approveSignerNames[3]="clusterissuers.dns3l.github.io/*"
 make docker-build
 kind load docker-image ghcr.io/dns3l/dns3l-certmgr-issuer:dev
 make helm-deploy

@@ -48,7 +48,7 @@ tools/dns3l2kube issuer my-new-issuer https://dns3l.foo.bar le
 returns
 
 ```yaml
-apiVersion: dns3l.github.com/v1alpha1
+apiVersion: dns3l.github.io/v1alpha1
 kind: Issuer
 metadata:
   name: my-new-issuer
@@ -101,7 +101,7 @@ metadata:
     annotations:
         cert-manager.io/issuer-name: my-new-issuer
         cert-manager.io/issuer-kind: Issuer
-        cert-manager.io/issuer-group: dns3l.github.com
+        cert-manager.io/issuer-group: dns3l.github.io
         cert-manager.io/certificate-name: ingress-cert
 type: kubernetes.io/tls
 data:
@@ -128,5 +128,5 @@ spec:
     issuerRef:
         name: my-new-issuer
         kind: Issuer
-        group: dns3l.github.com
+        group: dns3l.github.io
 ```

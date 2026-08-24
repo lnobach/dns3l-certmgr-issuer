@@ -56,7 +56,7 @@ func (i *ClusterIssuer) GetConditions() []metav1.Condition {
 }
 
 func (i *ClusterIssuer) GetIssuerTypeIdentifier() string {
-	return "clusterissuer.dns3l-issuer.dns3l.github.com"
+	return "clusterissuer.dns3l-issuer.dns3l.github.io"
 }
 
 // +kubebuilder:object:root=true

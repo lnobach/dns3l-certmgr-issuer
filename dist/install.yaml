@@ -12,9 +12,9 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.21.0
-  name: clusterissuers.dns3l.github.com
+  name: clusterissuers.dns3l.github.io
 spec:
-  group: dns3l.github.com
+  group: dns3l.github.io
   names:
     kind: ClusterIssuer
     listKind: ClusterIssuerList
@@ -160,9 +160,9 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.21.0
-  name: issuers.dns3l.github.com
+  name: issuers.dns3l.github.io
 spec:
-  group: dns3l.github.com
+  group: dns3l.github.io
   names:
     kind: Issuer
     listKind: IssuerList
@@ -362,13 +362,13 @@ metadata:
   name: dns3l-certmgr-issuer-dns3lclusterissuer-admin-role
 rules:
 - apiGroups:
-  - dns3l.github.com.github.com
+  - dns3l.github.io
   resources:
   - dns3lclusterissuers
   verbs:
   - '*'
 - apiGroups:
-  - dns3l.github.com.github.com
+  - dns3l.github.io
   resources:
   - dns3lclusterissuers/status
   verbs:
@@ -383,7 +383,7 @@ metadata:
   name: dns3l-certmgr-issuer-dns3lclusterissuer-editor-role
 rules:
 - apiGroups:
-  - dns3l.github.com.github.com
+  - dns3l.github.io
   resources:
   - dns3lclusterissuers
   verbs:
@@ -395,7 +395,7 @@ rules:
   - update
   - watch
 - apiGroups:
-  - dns3l.github.com.github.com
+  - dns3l.github.io
   resources:
   - dns3lclusterissuers/status
   verbs:
@@ -410,7 +410,7 @@ metadata:
   name: dns3l-certmgr-issuer-dns3lclusterissuer-viewer-role
 rules:
 - apiGroups:
-  - dns3l.github.com.github.com
+  - dns3l.github.io
   resources:
   - dns3lclusterissuers
   verbs:
@@ -418,7 +418,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - dns3l.github.com.github.com
+  - dns3l.github.io
   resources:
   - dns3lclusterissuers/status
   verbs:
@@ -433,13 +433,13 @@ metadata:
   name: dns3l-certmgr-issuer-dns3lissuer-admin-role
 rules:
 - apiGroups:
-  - dns3l.github.com.github.com
+  - dns3l.github.io
   resources:
   - dns3lissuers
   verbs:
   - '*'
 - apiGroups:
-  - dns3l.github.com.github.com
+  - dns3l.github.io
   resources:
   - dns3lissuers/status
   verbs:
@@ -454,7 +454,7 @@ metadata:
   name: dns3l-certmgr-issuer-dns3lissuer-editor-role
 rules:
 - apiGroups:
-  - dns3l.github.com.github.com
+  - dns3l.github.io
   resources:
   - dns3lissuers
   verbs:
@@ -466,7 +466,7 @@ rules:
   - update
   - watch
 - apiGroups:
-  - dns3l.github.com.github.com
+  - dns3l.github.io
   resources:
   - dns3lissuers/status
   verbs:
@@ -481,7 +481,7 @@ metadata:
   name: dns3l-certmgr-issuer-dns3lissuer-viewer-role
 rules:
 - apiGroups:
-  - dns3l.github.com.github.com
+  - dns3l.github.io
   resources:
   - dns3lissuers
   verbs:
@@ -489,7 +489,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - dns3l.github.com.github.com
+  - dns3l.github.io
   resources:
   - dns3lissuers/status
   verbs:
@@ -529,7 +529,7 @@ rules:
   verbs:
   - patch
 - apiGroups:
-  - dns3l.github.com
+  - dns3l.github.io
   resources:
   - clusterissuers
   - issuers
@@ -538,7 +538,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - dns3l.github.com
+  - dns3l.github.io
   resources:
   - issuers/status
   verbs:

@@ -17,7 +17,7 @@ metadata:
   name: {{ include "dns3l-certmgr-issuer.resourceName" (dict "suffix" "dns3lissuer-viewer-role" "context" $) }}
 rules:
 - apiGroups:
-  - dns3l.github.com.github.com
+  - dns3l.github.io
   resources:
   - dns3lissuers
   verbs:
@@ -25,7 +25,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - dns3l.github.com.github.com
+  - dns3l.github.io
   resources:
   - dns3lissuers/status
   verbs:

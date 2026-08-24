@@ -14,9 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-// Package v1alpha1 contains API Schema definitions for the dns3l.github.com v1alpha1 API group.
+// Package v1alpha1 contains API Schema definitions for the dns3l.github.io v1alpha1 API group.
 // +kubebuilder:object:generate=true
-// +groupName=dns3l.github.com
+// +groupName=dns3l.github.io
 package v1alpha1
 
 import (
@@ -28,7 +28,7 @@ import (
 var (
 	// SchemeGroupVersion is group version used to register these objects.
 	// This name is used by applyconfiguration generators (e.g. controller-gen).
-	SchemeGroupVersion = schema.GroupVersion{Group: "dns3l.github.com", Version: "v1alpha1"}
+	SchemeGroupVersion = schema.GroupVersion{Group: "dns3l.github.io", Version: "v1alpha1"}
 
 	// GroupVersion is an alias for SchemeGroupVersion, for backward compatibility.
 	GroupVersion = SchemeGroupVersion
